@@ -8,17 +8,13 @@
 #include <string>
 #include <map>
 #include <stdint.h>
-
 #include <thrust/host_vector.h>
 #include <thrust/device_vector.h>
 #include <thrust/reduce.h>
-
 #include <cuda_profiler_api.h>
-
-#include "freeglut/include/GL/glut.h"
-
-#include "HSV_RGB.h"
-#include "ThrustCachedAllocator.h"
+#include "../Lib/freeglut/include/GL/glut.h"
+#include "../Lib/HSV_RGB.h"
+#include "../Lib/ThrustCachedAllocator.h"
 
 using namespace std;
 
@@ -33,8 +29,6 @@ struct RenderData2D
     void Init(std::vector<float>& i_data, uint32_t i_width, float maxvalue, float minValue)
     {
         m_width = i_width;
-		//float maxvalue = *std::max_element(i_data.begin(), i_data.end());
-        //float minValue = *std::min_element(i_data.begin(), i_data.end());
         m_data.resize(i_data.size());
         for (int i = 0; i < i_data.size(); ++i)
         {
@@ -50,8 +44,6 @@ struct RenderData2D
 	void Init(thrust::host_vector<float>& i_data, uint32_t i_width, float maxvalue, float minValue)
     {
         m_width = i_width;
-		//float maxvalue = *std::max_element(i_data.begin(), i_data.end());
-        //float minValue = *std::min_element(i_data.begin(), i_data.end());
         m_data.resize(i_data.size());
         for (int i = 0; i < i_data.size(); ++i)
         {
@@ -77,34 +69,10 @@ float wu_global, wv_global;
 
 void idleCPU()
 {
-	//DNSCPU::RunSimulation();
-	//std::vector<float>& data = DNSCPU::getU();
-	//float maxvalue = *std::max_element(data.begin(), data.end());
-	//float minvalue = *std::min_element(data.begin(), data.end());
-
- //   maxvalue = 3.0f;
- //   minvalue = -3.0f;
-
-	//s_drawData.Init(data, DNSCPU::getUWidth(), maxvalue, minvalue);
-	//glutPostRedisplay();
 }
 
 void idleGPU()
 {
-	//DNSGPU::RunSimulation();
-	//
-	//std::vector<float>& data = DNSGPU::getU();
-	//if(data.size())
-	//{
-	//	float maxvalue = *std::max_element(data.begin(), data.end());
-	//	float minvalue = *std::min_element(data.begin(), data.end());
-
-	//	maxvalue = 3.0f;
-	//	minvalue = -3.0f;
-
-	//	s_drawData.Init(data, DNSGPU::getUWidth(), maxvalue, minvalue);
-	//}
-	//glutPostRedisplay();
 }
 
 void display();
@@ -125,7 +93,6 @@ int main(int argc, char**argv)
     
     
     // Uncomment this to run the original solver. 
-    //DoStuff();
 	DoStuffGPU();
 	
     // The idle func (defined in thsi while) will run the simulation (currently its jacobi)
